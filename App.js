@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Text,Button,View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
-
+import { createDrawerNavigator } from "@react-navigation/drawer";
 
 const Profile=({navigation})=>{
   
@@ -51,23 +51,35 @@ return (<Text>Home</Text>);
 
 const Tabs= createBottomTabNavigator();
 
+const Main=()=>{
+  return (<Tabs.Navigator>
+    <Tabs.Screen 
+      name="Home"
+       component={Home}
+       options={{
+        //...props yaparak bütün styles'ları kendisinin oluşturduklarını, içine yüklüyor ve kullanabilir bir hale geliyor
+        tabBarIcon:(props)=><Ionicons name="ios-home" {...props}/>
+       }}/>
+    <Tabs.Screen name="Profile"  component={profileStack} options={{
+      title:'Profile',
+      headerShown:false,
+      tabBarIcon:(props)=><Ionicons name="ios-person" {...props}/>
+      }}/>
+  </Tabs.Navigator>);
+};
 
+
+const About = ()=>{
+  return (<Text>AboutScreen</Text>);
+};
+
+const Drawe = createDrawerNavigator();
 const App=()=>{
   return <NavigationContainer>
-<Tabs.Navigator>
-  <Tabs.Screen 
-    name="Home"
-     component={Home}
-     options={{
-      //...props yaparak bütün styles'ları kendisinin oluşturduklarını, içine yüklüyor ve kullanabilir bir hale geliyor
-      tabBarIcon:(props)=><Ionicons name="ios-home" {...props}/>
-     }}/>
-  <Tabs.Screen name="Profile"  component={profileStack} options={{
-    title:'Profile',
-    headerShown:false,
-    tabBarIcon:(props)=><Ionicons name="ios-person" {...props}/>
-    }}/>
-</Tabs.Navigator>
+<Drawe.Navigator>
+  <Drawe.Screen name="Main" component={Main}/>
+  <Drawe.Screen name="About" component={About}/>
+</Drawe.Navigator>
   </NavigationContainer>;
 };
 

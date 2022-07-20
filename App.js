@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React, { useState } from "react";
 import { Text,Button,View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 
 const Profile=({navigation})=>{
@@ -54,8 +55,18 @@ const Tabs= createBottomTabNavigator();
 const App=()=>{
   return <NavigationContainer>
 <Tabs.Navigator>
-  <Tabs.Screen name="Home" component={Home}/>
-  <Tabs.Screen name="Profile"  component={profileStack} options={{title:'Profile',headerShown:false}}/>
+  <Tabs.Screen 
+    name="Home"
+     component={Home}
+     options={{
+      //...props yaparak bütün styles'ları kendisinin oluşturduklarını, içine yüklüyor ve kullanabilir bir hale geliyor
+      tabBarIcon:(props)=><Ionicons name="ios-home" {...props}/>
+     }}/>
+  <Tabs.Screen name="Profile"  component={profileStack} options={{
+    title:'Profile',
+    headerShown:false,
+    tabBarIcon:(props)=><Ionicons name="ios-person" {...props}/>
+    }}/>
 </Tabs.Navigator>
   </NavigationContainer>;
 };
